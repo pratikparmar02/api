@@ -30,7 +30,7 @@ def search_movies(
     min_rating: int = 0
 ):
     try:
-        resp = httpx.get('https://yts.mx/api/v2/list_movies.json', params={
+        resp = httpx.get('https://yts.lt/api/v2/list_movies.json', params={
             'query_term': q,
             'genre': genre,
             'page': page,
