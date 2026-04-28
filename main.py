@@ -2,6 +2,11 @@ from fastapi import FastAPI, HTTPException
 from typing import List, Optional
 import httpx
 
+
+import threading
+import time
+
+
 app = FastAPI()
 
 # build_magnet defined FIRST before it's used
@@ -61,4 +66,20 @@ def search_movies(
                 'magnet': magnet
             })
 
-    return results
+    return 
+
+def ping_self():
+    while True:
+        time.sleep(840)  # ping every 14 minutes
+        try:
+            httpx.get("https://torrent-api-91z3.onrender.com")
+        except:
+            pass  # silently ignore if it fails
+
+@app.get("/ping")
+def ping():
+    return {"status": "alive"}
+
+# Start ping thread when app starts
+thread = threading.Thread(target=ping_self, daemon=True)
+thread.start()
