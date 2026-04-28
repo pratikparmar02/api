@@ -37,7 +37,7 @@ def search_movies(
             'limit': limit,
             'minimum_rating': min_rating,
             'sort_by': 'seeds'
-        }, timeout=10)
+        }, follow_redirects=True, timeout=10)
         resp.raise_for_status()
     except httpx.ConnectError:
         raise HTTPException(status_code=502, detail="Cannot reach YTS")
